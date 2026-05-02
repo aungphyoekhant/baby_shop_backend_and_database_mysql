@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  image String
+  name  String?
+  items Item[]  // Item model နဲ့ ချိတ်ဆက်မှု
+}
+
+model Item { 
+  id          Int      @id @default(autoincrement()) 
+  title       String
+  description String   @db.Text // စာသားအရှည်ကြီးရေးမယ်ဆိုရင် @db.Text ထည့်ပေးတာ ပိုကောင်းပါတယ်
+  price       Int
+  image       String
+  category    Category @relation(fields: [categoryId], references: [id]) 
+  categoryId  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+ 
