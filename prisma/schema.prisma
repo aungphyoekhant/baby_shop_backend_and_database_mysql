@@ -12,22 +12,34 @@ datasource db {
   provider = "mysql"
 }
 
-model Category {
-  id    Int     @id @default(autoincrement())
-  image String
-  name  String?
-  items Item[]  // Item model နဲ့ ချိတ်ဆက်မှု
-}
+model User { 
+  id    Int     @id @default(autoincrement()) 
+  email String  @unique
+  password String
+  isActive         Boolean   @default(true)
+  lastLogin        DateTime?
+  resetToken       String?
+  resetTokenExpiry DateTime? 
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  
+} 
+model Category { 
+  id        Int     @id @default(autoincrement()) 
+  title     String
+  description String?
+  image     String?
+  items Item[]
+  createdAt DateTime @default(now())
+} 
 
 model Item { 
-  id          Int      @id @default(autoincrement()) 
-  title       String
-  description String   @db.Text // စာသားအရှည်ကြီးရေးမယ်ဆိုရင် @db.Text ထည့်ပေးတာ ပိုကောင်းပါတယ်
-  price       Int
-  image       String
-  category    Category @relation(fields: [categoryId], references: [id]) 
-  categoryId  Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        Int     @id @default(autoincrement()) 
+  title     String
+  image     String?
+  price     String
+  description String?
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+  createdAt DateTime @default(now())
 }
- 

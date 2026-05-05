@@ -1,23 +1,15 @@
 {
-  "name": "baby_shop_api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts",
-    "reset": "npx prisma migrate reset -f",
-    "migrate": "npx prisma migrate dev --name init",
-    "generate": "npx prisma generate"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "seed": "npx tsx prisma/seed.ts",
+    "remove": "npx prisma migrate reset --force",
+    "create": "npx prisma migrate dev --name init",
+    "update": "npx prisma generate"
+  },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.8.0",
     "@prisma/client": "^7.8.0",
-    "@types/dotenv": "^6.1.1",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -25,13 +17,13 @@
     "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.6.0",
     "prisma": "^7.8.0",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "tsx": "^4.21.0"
   }
 }
